@@ -18,7 +18,7 @@
       </el-form-item>     
       <el-form-item label="图片：" prop="Img">   
         <Uploadimgs v-model="temp.Img" ref="upLoadimg" :disabled="type==1"></Uploadimgs>
-        <div class="chicun">尺寸：170*170</div>
+        <div class="chicun">尺寸：480*200</div>
       </el-form-item>  
       <el-form-item label="报名区间" prop="StartTime">   
         <el-date-picker

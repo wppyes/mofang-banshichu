@@ -148,6 +148,7 @@ export default {
             data
           }).then(response => {
             if (response.Status==1) {
+              this.getList()
               this.$message({
                 message: response.Msg,
                 type: "success"

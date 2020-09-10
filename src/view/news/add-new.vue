@@ -32,7 +32,7 @@
       </el-form-item>          
       <el-form-item label="图片：" prop="Img" v-if="temp.Classify==2">   
         <Uploadimgs v-model="temp.Img" ref="upLoadimg"></Uploadimgs>
-        <div class="chicun">尺寸：170*170</div>
+        <div class="chicun">尺寸：216*128</div>
       </el-form-item>
       <el-form-item label="内容" prop="Content" style="width:1100px">
         <Tinymce ref="editor" v-model="temp.Content" :key="tinymceFlag" :height="500" />
@@ -138,6 +138,7 @@ export default {
             Title:this.temp.Title,
             Content:this.temp.Content,
             Img:this.temp.Img,
+            Classify:this.temp.Classify,
             Details:this.temp.Details
           }
           var data = this.$qs.stringify(param);

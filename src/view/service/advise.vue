@@ -41,7 +41,7 @@
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>   
     </div>
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row>
-      <el-table-column label="内容" align="left" prop="Details" width="400px"></el-table-column> 
+      <el-table-column label="标题" align="left" prop="Title" width="400px"></el-table-column> 
       <el-table-column label="时间" align="center" prop="CreatedStr" width="180px"></el-table-column>
       <el-table-column label="状态" align="center" prop="ReplyTimeStr" width="180px">
         <template slot-scope="scope">
@@ -169,7 +169,6 @@ export default {
           }).then(response => {
             if (response.Status==1) {
               if(type==5){
-
                 const index = this.list.indexOf(row);
                 this.list.splice(index, 1);
               }else{

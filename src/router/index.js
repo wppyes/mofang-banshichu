@@ -7,6 +7,7 @@ import activityRouter from './modules/activity'
 import newsRouter from './modules/news'
 import noticeRouter from './modules/notice'
 import serviceRouter from './modules/service'
+import rangeRouter from './modules/range'
 export const constantRouterMap = [
   {
     path: '/',
@@ -58,7 +59,8 @@ export const constantRouterMap = [
   activityRouter,
   newsRouter,
   noticeRouter,
-  serviceRouter
+  serviceRouter,
+  rangeRouter
 ]
 const router = new Router({
   // mode: 'history', // require service support

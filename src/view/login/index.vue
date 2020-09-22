@@ -126,9 +126,9 @@ export default {
                 this.loading = false;
 				if(this.$route.query.redirect == location.hostname){
                   this.$router.go(-1);
-                }else{
-                  this.$router.push({
-                    path: "/console"
+                }else{                  
+                   this.$router.push({
+                    path: response.Path
                   });
                 }    
               }

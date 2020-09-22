@@ -3,7 +3,6 @@
 import { MessageBox } from 'element-ui'
 import router from '../router/index'
 import baseurl from './url';
-import * as qiniu from "qiniu-js";
 function upfile(file,url,call){
     var FileController =  baseurl.BASE_URL+url;     // 接收上传文件的后台地址 
     // FormData 对象

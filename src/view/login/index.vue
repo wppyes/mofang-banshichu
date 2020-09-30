@@ -9,12 +9,24 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">后台登录</h3>
+        <h3 class="title">叮当优家街道办管理系统</h3>
       </div>
 
+      <el-form-item prop="UniqueId">
+        <span class="svg-container">
+          <svg-icon icon-class="component" />
+        </span>
+        <el-input
+          v-model="loginForm.UniqueId"
+          placeholder="请输入机构编号"
+          name="UniqueId"
+          type="text"
+          auto-complete="on"
+        />
+      </el-form-item>
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user"/>
+          <svg-icon icon-class="user" />
         </span>
         <el-input
           v-model="loginForm.username"
@@ -27,7 +39,7 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password"/>
+          <svg-icon icon-class="password" />
         </span>
         <el-input
           v-model="loginForm.password"
@@ -38,14 +50,14 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
       <el-button
         id="TencentCaptcha"
         type="primary"
-        style="width:100%;margin-bottom:30px;" 
-        @click="handleLogin"       
+        style="width:100%;margin-bottom:30px;"
+        @click="handleLogin"
       >登录</el-button>
     </el-form>
   </div>
@@ -59,37 +71,42 @@ export default {
   data() {
     return {
       loginForm: {
+        UniqueId: "",
         username: "",
         password: "",
-        code: ""
+        code: "",
       },
       key: "",
       path: "",
       loginRules: {
+        UniqueId: [
+          { required: true, trigger: "blur", message: "机构编号必须填写！" },
+        ],
         username: [
-          { required: true, trigger: "blur", message: "用户名必须填写！" }
+          { required: true, trigger: "blur", message: "用户名必须填写！" },
         ],
         password: [
-          { required: true, trigger: "blur", message: "密码必须填写！" }
+          { required: true, trigger: "blur", message: "密码必须填写！" },
         ],
-        code: [{ required: true, trigger: "blur", message: "验证码必须填写！" }]
+        code: [
+          { required: true, trigger: "blur", message: "验证码必须填写！" },
+        ],
       },
       passwordType: "password",
       loading: false,
       showDialog: false,
-      redirect: undefined
+      redirect: undefined,
     };
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     showPwd() {
       if (this.passwordType === "password") {
@@ -99,38 +116,39 @@ export default {
       }
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          var cap=new TencentCaptcha('2029555843', res=> {     
+          var cap = new TencentCaptcha("2029555843", (res) => {
             var data = this.$qs.stringify({
+              UniqueId: this.loginForm.UniqueId,
               Name: this.loginForm.username,
               Pwd: this.loginForm.password,
-              ticket: res.ticket, 
-              randstr: res.randstr
+              ticket: res.ticket,
+              randstr: res.randstr,
             });
             request({
               url: "/home",
               method: "post",
-              data
-            }).then(response => {
+              data,
+            }).then((response) => {
               if (response.Status == 1) {
                 this.loading = true;
                 var tempdata = {
                   Name: response.Model.Name,
-                  img: response.Model.Images
+                  img: response.Model.Images,
                 };
                 localStorage.setItem("SiteKey", response.SiteKey + ",0");
                 var modelobj = JSON.stringify(tempdata);
                 localStorage.setItem("logintemp", modelobj);
-                
+
                 this.loading = false;
-				if(this.$route.query.redirect == location.hostname){
+                if (this.$route.query.redirect == location.hostname) {
                   this.$router.go(-1);
-                }else{                  
+                } else {
                    this.$router.push({
                     path: response.Path
                   });
-                }    
+                }
               }
             });
           });
@@ -140,8 +158,8 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

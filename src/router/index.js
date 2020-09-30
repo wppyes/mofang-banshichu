@@ -8,13 +8,14 @@ import newsRouter from './modules/news'
 import noticeRouter from './modules/notice'
 import serviceRouter from './modules/service'
 import rangeRouter from './modules/range'
+import managerRouter from './modules/manager'
 export const constantRouterMap = [
   {
     path: '/',
     component: () => import('@/view/login/index'),
     hidden: true,
     meta: {
-      title: '登录'
+      title: '叮当优家街道办管理系统'
     }
   }, 
    
@@ -60,7 +61,8 @@ export const constantRouterMap = [
   newsRouter,
   noticeRouter,
   serviceRouter,
-  rangeRouter
+  rangeRouter,
+  managerRouter
 ]
 const router = new Router({
   // mode: 'history', // require service support

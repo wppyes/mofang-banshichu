@@ -16,7 +16,7 @@
         style="width: 150px"
         class="filter-item"
       >
-        <el-option v-for="item in CategoryList" :label="item.Text" :value="item.Value" :key="item.Value"></el-option>
+        <el-option v-for="item in CategoryList" :label="item.Name" :value="item.Id" :key="item.Id"></el-option>
       </el-select>
       <el-select
         v-model="listQuery.status"
@@ -56,7 +56,7 @@
           <el-button size="mini" type="primary" @click="handledel(scope.row,4,'完成')" v-if="scope.row.Status==3">
             确认完成
           </el-button>
-          <el-button size="mini" type="primary" @click="huifu(scope.row)">
+          <el-button size="mini" type="primary" @click="huifu(scope.row)" v-if="scope.row.Status>1">
             回复
           </el-button>
           <el-button size="mini" type="danger" @click="handledel(scope.row,5,'删除')" >

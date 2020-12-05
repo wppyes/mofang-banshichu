@@ -1,5 +1,10 @@
 <template>
   <div class="user boxright">
+    <div class="back">
+      <span @click="backto">
+        <i class="el-icon-arrow-left"></i>返回
+      </span>
+    </div>
     <div class="filter-container">
       <div class="filter-item" style="margin-right:20px;">
         <el-button type="primary" @click="handleadd('增加人员',true)">
@@ -104,16 +109,19 @@ export default {
       listQuery: {
         pageIndex: 1,
         pageSize: 15,
-        name:''
+        name:'',
+        rid:''
       },
       total:0,//总数量
       temp: {
         Id: 0,
         Name: "",
-        Number: ""
+        Number: "",
+        rid:''
       },
       temp1:{
-        filepath:''
+        filepath:'',
+        rid:''
       },
       dialogStatus: "", //面板标题
       dialogFormVisible: false, //面板是否展示
@@ -135,9 +143,15 @@ export default {
     };
   },
   created() {
+    this.listQuery.rid = this.$route.query.id; 
+    this.temp.rid = this.$route.query.id; 
+    this.temp1.rid = this.$route.query.id; 
     this.getList();
   },
   methods: {
+    backto() {   
+      this.$router.go(-1);
+    },
     handleup(){
       this.dialogwuliuVisible=true;
       this.temp1.filepath='';
@@ -162,7 +176,8 @@ export default {
       this.$refs["datawuliu"].validate(valid => {
         if (valid) { 
           var param={
-              filepath:this.temp1.filepath
+              filepath:this.temp1.filepath,
+              rid:this.temp1.rid
           };  
           var data = this.$qs.stringify(param);
           request({
@@ -204,7 +219,8 @@ export default {
       this.temp = {
         Id: row.Id,
         Name: row.Name,
-        Number: row.Number
+        Number: row.Number,
+        rid : this.$route.query.id
       };
       this.dialogStatus = title;
       this.dialogFormVisible = true;
@@ -242,7 +258,8 @@ export default {
       this.temp = {
         Id: 0,
         Name: "",
-        Number: ''
+        Number: '',
+        rid : this.$route.query.id
       };
       this.dialogStatus = title;
       this.dialogFormVisible = true;
@@ -263,11 +280,12 @@ export default {
             if (response.Status==1) {
               if(this.iscreate){
                 var param={
-                  Id:this.temp.Id,
+                  Id:response.Id,
                   Name:this.temp.Name,
-                  Number:this.temp.Number
+                  Number:this.temp.Number,
+                  Rid:this.$route.query.id
                 }
-                this.list.push(this.temp);
+                this.list.push(param);
               }else{
                 for(let i in this.list){
                   if(this.list[i].Id==this.temp.Id){

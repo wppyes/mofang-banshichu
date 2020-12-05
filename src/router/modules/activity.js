@@ -20,7 +20,7 @@ const activityRouter = {
       path: 'activity-list/add-activity',
       component: () => import('@/view/activity/add-activity'),
       meta: {
-        title: '活动增改增改'
+        title: '活动增改'
       }
     },
     {

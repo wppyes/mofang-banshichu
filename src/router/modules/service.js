@@ -58,6 +58,13 @@ const serviceRouter = {
         title: '服务列表'
       }
     },
+    {
+      path: 'wangge-list',
+      component: () => import('@/view/service/wangge-list'),
+      meta: {
+        title: '网格员认证'
+      }
+    },
   ]
 }
 export default serviceRouter

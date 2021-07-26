@@ -47,19 +47,26 @@
         <template slot-scope="scope">
           <span v-text="setstatus(scope.row.Status)" :class="'status'+scope.row.Status"></span>
         </template>
+      </el-table-column><el-table-column label="评价" align="center" prop="ReplyTimeStr" width="180px">
+        <template slot-scope="scope">
+          <span :class="'status'+scope.row.IsEvaluate">{{scope.row.IsEvaluate==0?'未评价':''}}</span>
+        </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handledel(scope.row,2,'受理')" v-if="scope.row.Status==1">
             受理
           </el-button>
+          <el-button size="mini" type="primary" @click="handledel(scope.row,3,'处理')" v-if="scope.row.Status==2">
+            处理
+          </el-button>
           <el-button size="mini" type="primary" @click="handledel(scope.row,4,'完成')" v-if="scope.row.Status==3">
             确认完成
           </el-button>
           <el-button size="mini" type="primary" @click="huifu(scope.row)" v-if="scope.row.Status>1">
-            回复
+            查看
           </el-button>
-          <el-button size="mini" type="danger" @click="handledel(scope.row,5,'删除')" >
+          <el-button size="mini" type="danger" @click="handledel(scope.row,5,'删除')" v-if="scope.row.Status==0">
             <i class="el-icon-delete"></i>
           </el-button>
         </template>

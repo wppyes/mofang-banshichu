@@ -62,7 +62,7 @@
           <el-table-column label="姓名" prop="Name" align="center" width="200px"></el-table-column>
           <el-table-column label="头像" prop="Img" align="center" width="100px">
             <template slot-scope="scope">
-              <img :src="scope.row.Img" alt="" style="width:50px;">
+              <img :src="scope.row.Img" alt="" style="width:50px; height:50px">
             </template>
           </el-table-column>
           <el-table-column label="职务" prop="Function" align="center"></el-table-column>
@@ -134,7 +134,7 @@ export default {
       })
         .then(() => {
           request({
-            url: "HonourRollroster/SetHonourRollroster",
+            url: "HonourRollColumn/SetHonourRollroster",
             method: "post",
             data
           }).then(response => {
@@ -160,7 +160,7 @@ export default {
       })
         .then(() => {
           request({
-            url: "HonourRollroster/Update",
+            url: "HonourRollColumn/UpdateTime",
             method: "post",
             data
           }).then(response => {
@@ -189,7 +189,7 @@ export default {
       })
         .then(() => {
           request({
-            url: "HonourRollroster/Del",
+            url: "HonourRollColumn/Del",
             method: "post",
             data
           }).then(response => {
@@ -212,7 +212,7 @@ export default {
     getbox(){
       this.boxLoading = true;
       request({
-        url: "HonourRollroster/GetHonourRollStaffList",
+        url: "HonourRollColumn/GetHonourRollStaffList",
         method: "get",
         params: this.box
       }).then(response => {
@@ -229,7 +229,7 @@ export default {
     getList(){
       this.listLoading = true;
       request({
-        url: "HonourRollroster/GetHonourRollrosterList",
+        url: "HonourRollColumn/GetHonourRollrosterList",
         method: "get",
         params: this.listQuery
       }).then(response => {

@@ -39,6 +39,11 @@
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row>
       <el-table-column label="标题" align="left" prop="Title" width="700px"></el-table-column>
       <el-table-column label="点击量" align="center" prop="Count" width="100px"></el-table-column> 
+      <el-table-column label="U+系统" align="center" prop="IsSynchro" width="100px">
+        <template slot-scope="scope">
+          <span :class="'status'+scope.row.IsSynchro">{{scope.row.IsSynchro==0?'未同步':'同步'}}</span>
+        </template>
+      </el-table-column> 
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="linktoadd(scope.row.Id)">
@@ -193,5 +198,8 @@ export default {
 };
 </script>
 <style lang="scss" rel="stylesheet/scss">
-
+  .news{
+    .status0{color: #999;}
+    .status1{color: #409EFF;}
+  }
 </style>

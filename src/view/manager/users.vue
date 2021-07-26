@@ -72,11 +72,11 @@
           <el-input v-model="temp.Name" placeholder="请填写姓名"/>
         </el-form-item>
         <el-form-item label="角色" prop="RoleId">
-          <el-select v-model="temp.RoleId" placeholder="请选择角色">
+          <el-select v-model="temp.RoleId" placeholder="请选择角色" @change="getroletype">
             <el-option v-for="item in rolelist" :label="item.Name" :key="item.Id" :value="item.Id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label=" 社区" prop="OCId" v-if="temp.RoleId==3">
+        <el-form-item label=" 社区" prop="OCId" v-if="roletype==2">
           <el-select v-model="temp.OCId" placeholder="请选择社区" clearable>
             <el-option v-for="item in shequlist" :label="item.Name" :key="item.Id" :value="item.Id"></el-option>
           </el-select>
@@ -101,6 +101,7 @@ export default {
       list: null,
       listLoading: true,
       rolelist: [], //角色列表
+      roletype:'',
       temp: {
         Id: 0,
         Login: "",
@@ -149,6 +150,15 @@ export default {
     this.getList();
   },
   methods: {
+    getroletype(){
+        for(let i in this.rolelist){
+            if(this.rolelist[i].Id==this.temp.RoleId){
+                this.roletype=this.rolelist[i].Type;
+                return
+            }
+            
+        }
+    },
     getList(){
       this.listLoading = true;
       request({

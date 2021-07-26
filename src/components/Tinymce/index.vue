@@ -180,7 +180,7 @@ export default {
     },
     getTocken() {
       request({
-        url: "Upload/GetToken",
+        url: "Currency/GetToken",
         method: "get",
         params: {}
       }).then(response => {

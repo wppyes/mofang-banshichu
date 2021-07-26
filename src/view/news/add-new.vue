@@ -34,9 +34,19 @@
         <Uploadimgs v-model="temp.Img" ref="upLoadimg"></Uploadimgs>
         <div class="chicun">尺寸：216*128</div>
       </el-form-item>
+      <el-form-item label="同步" prop="IsSynchro" style="width:1100px">
+        <el-switch
+            v-model="temp.IsSynchro"
+            active-text="同步"
+            inactive-text="不同步">
+          </el-switch>
+          <div style="display:inline-block; color:#f00;">
+            (可以同步至U+的热门资讯)
+          </div>
+      </el-form-item>  
       <el-form-item label="内容" prop="Content" style="width:1100px">
-        <Tinymce ref="editor" v-model="temp.Content" :key="tinymceFlag" :height="500" />
-      </el-form-item>
+        <Tinymce ref="editor" v-model="temp.Content" :key="tinymceFlag" :height="500" />    
+      </el-form-item>   
     </el-form>
     <el-button type="primary" style="margin-left:170px" @click="createData">确定</el-button>
   </div>
@@ -57,7 +67,8 @@ export default {
         Content: '', 
         Classify:'',
         Img:'',
-        Details:''
+        Details:'',
+        IsSynchro:false
       },
       tinymceFlag:1,
       rules: {        
@@ -96,7 +107,8 @@ export default {
       this.temp.Content = '';
       this.temp.Classify = '';
       this.temp.Img = '';
-      this.temp.Details = '';      
+      this.temp.Details = '';   
+      this.temp.IsSynchro = false;     
     }else{
       this.getdetail()
     }
@@ -115,6 +127,7 @@ export default {
             this.temp.Details=response.Model.Details;     
             this.temp.Classify=response.Model.Classify.toString();    
             this.temp.Img = response.Model.Img;  
+            this.temp.IsSynchro =response.Model.IsSynchro==1?true:false;
             this.$refs.editor.setContent(response.Model.Content);  
           } 
           this.$nextTick(() => {
@@ -139,7 +152,8 @@ export default {
             Content:this.temp.Content,
             Img:this.temp.Img,
             Classify:this.temp.Classify,
-            Details:this.temp.Details
+            Details:this.temp.Details,
+            IsSynchro:this.temp.IsSynchro?1:0
           }
           var data = this.$qs.stringify(param);
           request({

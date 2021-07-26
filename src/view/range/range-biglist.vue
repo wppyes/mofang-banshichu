@@ -167,7 +167,7 @@ export default {
     },
      handledel(row,value,str) {
       var data = this.$qs.stringify({ Id: row.Id,Status:value});
-      this.$confirm("确定要"+str+"该榜单吗？设置的人员将会丢失！", "提示", {
+      this.$confirm("确定要"+str+"该榜单吗？", "提示", {
         dangerouslyUseHTMLString: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消"

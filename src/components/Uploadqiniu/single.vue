@@ -43,7 +43,7 @@ export default {
   methods: {
     getTocken() {
        request({
-          url: "Upload/GetToken",
+          url: "Currency/GetToken",
           method: "get",
           params: {}
         }).then(response => {

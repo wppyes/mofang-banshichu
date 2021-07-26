@@ -34,7 +34,7 @@
         </div>   
         <ul class="huifu-ul">
           <li v-for="item in list">
-            <div><b :class="item.Type==0?'status1':'status3'">{{item.Type==0?'用户':'系统'}}</b>：{{item.Content}}</div> 
+            <div><b :class="item.Type==0?'status1':'status3'">{{item.Type==0?'市民':'系统'}}</b>：{{item.Content}}</div> 
             {{item.CreatedStr}} 
             <span><i class="el-icon-delete" @click="handledel(item)"></i></span>
           </li>  
@@ -48,7 +48,19 @@
           />
       </el-card>
     </div>
-
+<br/>
+      <el-card class="box-card" v-if="evaluate.CreatedStr">
+        <div slot="header" class="clearfix">
+          <span>评价结果</span>
+        </div>
+        <div class="manyi">  
+          <div class="wenzi" v-if="evaluate.Represent==1"><i class="fa fa-frown-o"></i> 不满意</div>
+          <div class="wenzi" v-else><i class="fa fa-smile-o"></i> 满意</div>
+          <el-divider content-position="left" v-if="evaluate.Content && evaluate.Represent==1">内容</el-divider>  
+          <div v-if="evaluate.Represent==1">{{evaluate.Content}}</div>        
+        </div><br/>
+        <div style="color:#999; font-size:14px;">{{evaluate.CreatedStr}}</div>
+      </el-card>
     
     <el-dialog :title="dialogStatus" :visible.sync="dialogFormVisible" :close-on-click-modal="false" width="710px">
       <el-form
@@ -90,6 +102,7 @@ export default {
       dialogFormVisible:false,
       dialogStatus:'',
       imgs:[],
+      evaluate:{},
       temp:{
         CId:'',
         Content:''
@@ -117,10 +130,22 @@ export default {
       }
     });
     this.getList(); 
+    this.getevaluate();
   },
   mounted () {
   }, 
   methods: {
+    getevaluate(){
+      request({
+        url: "Complaint/GetComplaintEvaluate",
+        method: "get",
+        params: {id:this.$route.query.id}
+      }).then(response => {
+        if (response.Status == 1) {
+          this.evaluate=response.Model
+        }
+      });
+    },
     getList(){
       this.listLoading = true;
       request({
@@ -219,5 +244,9 @@ export default {
   .huifu-ul div{color: #333; font-size: 14px;}
   .huifu-ul li{border-bottom: 1px solid #ebebeb; position: relative; padding: 10px 0;}
   .huifu-ul li span{position: absolute; right: 0; bottom: 0; color: #F56C6C; cursor: pointer;}
+  .manyi i{font-size: 80px; margin-right: 10px;}
+  .manyi i.fa-smile-o{color: #67C23A;}
+  .manyi i.fa-frown-o{color: #F56C6C;}
+  .wenzi{display: flex; align-items: center;}
 }
 </style>

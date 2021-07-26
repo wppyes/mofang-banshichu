@@ -94,7 +94,7 @@ export default {
   methods: {
     getdata:function(){
       request({
-        url: "Menus/GetMenusList",
+        url: "role/GetMenusList",
         method: "get",
         params: {}
       }).then(response => {

@@ -10,6 +10,7 @@ import serviceRouter from './modules/service'
 import rangeRouter from './modules/range'
 import managerRouter from './modules/manager'
 import starRouter from './modules/star'
+import hospitalRouter from './modules/hospital'
 export const constantRouterMap = [
   {
     path: '/',
@@ -64,7 +65,8 @@ export const constantRouterMap = [
   serviceRouter,
   rangeRouter,
   managerRouter,
-  starRouter
+  starRouter,
+  hospitalRouter
 ]
 const router = new Router({
   // mode: 'history', // require service support
